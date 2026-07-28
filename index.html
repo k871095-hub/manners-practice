@@ -140,19 +140,19 @@
 
     .quiz-card {
       width: 100%;
-      max-width: 900px;
+      max-width: 920px;
       background: white;
       border-radius: 28px;
       border: 4px solid #7dd3fc;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-      padding: 20px 30px;
+      padding: 16px 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 16px;
+      gap: 12px;
       flex: 1;
-      margin: 10px 0;
+      margin: 6px 0;
     }
 
     .question-title-badge {
@@ -166,8 +166,8 @@
     }
 
     .action-illustration {
-      width: 280px;
-      height: 180px;
+      width: 260px;
+      height: 160px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -185,11 +185,11 @@
 
     @keyframes bounceSlow {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      50% { transform: translateY(-6px); }
     }
 
     .question-text {
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 800;
       color: #1e293b;
       text-align: center;
@@ -209,10 +209,10 @@
     .btn-maru, .btn-batsu {
       font-family: inherit;
       flex: 1;
-      height: 100px;
+      height: 96px;
       border-radius: 24px;
       border: none;
-      font-size: 56px;
+      font-size: 52px;
       font-weight: 800;
       cursor: pointer;
       display: flex;
@@ -243,33 +243,58 @@
       box-shadow: 0 3px 0 #b91c1c;
     }
 
-    .choices-container {
+    /* 選択肢（画像上＋テキスト下）カードコンテナ */
+    .choices-card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      width: 100%;
+      max-width: 840px;
+      margin-top: 6px;
+    }
+
+    .choice-card-button {
+      font-family: inherit;
+      background-color: #ffffff;
+      border: 3px solid #38bdf8;
+      border-radius: 20px;
+      padding: 12px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      width: 100%;
-      max-width: 700px;
-    }
-
-    .btn-choice {
-      font-family: inherit;
-      font-size: 22px;
-      font-weight: 800;
-      background-color: #f8fafc;
-      color: #0369a1;
-      border: 3px solid #38bdf8;
-      padding: 14px 20px;
-      border-radius: 18px;
+      align-items: center;
+      justify-content: space-between;
       cursor: pointer;
-      text-align: center;
-      box-shadow: 0 5px 0 #0284c7;
-      transition: all 0.1s;
+      box-shadow: 0 6px 0 #0284c7;
+      transition: all 0.15s ease-in-out;
+      min-height: 180px;
     }
 
-    .btn-choice:active {
-      background-color: #e0f2fe;
-      transform: translateY(3px);
+    .choice-card-button:active {
+      transform: translateY(4px);
       box-shadow: 0 2px 0 #0284c7;
+      background-color: #f0f9ff;
+    }
+
+    .choice-card-img-box {
+      width: 100%;
+      height: 110px;
+      background-color: #f8fafc;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 8px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .choice-card-text {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0369a1;
+      text-align: center;
+      line-height: 1.3;
+      word-break: break-all;
     }
 
     .feedback-overlay {
@@ -303,7 +328,7 @@
       background: white;
       padding: 24px;
       border-radius: 24px;
-      width: 650px;
+      width: 680px;
       max-width: 94vw;
       text-align: center;
       display: flex;
@@ -462,6 +487,7 @@
         ともだちを たたく
       </div>
 
+      <!-- ステップ1: ⭕ ❌ ボタン -->
       <div class="marubatsu-container" id="marubatsu-area">
         <button class="btn-maru" onclick="checkStep1(true)">
           <span>⭕</span> 〇
@@ -471,7 +497,8 @@
         </button>
       </div>
 
-      <div class="choices-container" id="choices-area" style="display: none;"></div>
+      <!-- ステップ2: 画像＋テキストが縦にならんだ横並び選択肢カード -->
+      <div class="choices-card-grid" id="choices-area" style="display: none;"></div>
     </div>
 
     <div id="feedback-ok" class="feedback-overlay">⭕</div>
@@ -571,7 +598,7 @@
     <div class="modal-content">
       <h2 id="edit-problem-title" style="color: #0284c7; font-size: 22px; font-weight: 800;">新しい問題を作成</h2>
 
-      <div class="flex flex-col gap-3 text-left overflow-y-auto max-h-[60vh] pr-2">
+      <div class="flex flex-col gap-3 text-left overflow-y-auto max-h-[62vh] pr-2">
         <div class="form-group">
           <label class="form-label">ジャンル</label>
           <select id="edit-genre" class="form-select">
@@ -592,7 +619,7 @@
           <div class="text-xs text-amber-900 font-bold">
             💡 入力した文章をもとに「いらすとや」の画像を検索できます
           </div>
-          <button type="button" class="btn-sub btn-accent text-xs py-2 px-3 shadow-md whitespace-nowrap" onclick="searchIrasutoya()">
+          <button type="button" class="btn-sub btn-accent text-xs py-2 px-3 shadow-md whitespace-nowrap" onclick="searchIrasutoyaForInput('edit-text')">
             🔍 いらすとやで検索（別タブ）
           </button>
         </div>
@@ -611,8 +638,9 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-label">イラスト・画像</label>
+        <!-- 問題自体の画像・イラスト -->
+        <div class="form-group border-2 border-sky-100 p-3 rounded-2xl bg-sky-50/50">
+          <label class="form-label">メイン問題イラスト・画像</label>
           <div class="flex flex-col gap-2">
             <div class="flex gap-1 bg-sky-50 p-1 rounded-xl border border-sky-200">
               <button type="button" id="tab-btn-img-preset" class="modal-tab-btn active text-xs py-1.5" onclick="switchImageSourceTab('preset')">🎨 スタンプ・絵文字</button>
@@ -625,7 +653,7 @@
                 <option value="🙋">🙋 はんのう・へんじ</option>
                 <option value="🧸">🧸 おもちゃ・あそび</option>
                 <option value="🧹">🧹 おそうじ・かたづけ</option>
-                <option value="弁当">🍱 おべんとう・きゅうしょく</option>
+                <option value="🍱">🍱 おべんとう・きゅうしょく</option>
                 <option value="🎨">🎨 おえかき・こうさく</option>
                 <option value="🤝">🤝 なかよし・あいさつ</option>
                 <option value="🏃">🏃 ろうか・はしる</option>
@@ -636,32 +664,112 @@
 
             <div id="img-source-file" class="flex flex-col gap-2" style="display: none;">
               <input type="file" id="edit-image-file" accept="image/*" class="text-xs w-full p-2 border border-slate-300 rounded-xl bg-white" onchange="handleImageFileUpload(event)">
-              <p class="text-[11px] text-slate-500">※「いらすとや」等から保存した画像を端末から選択できます。</p>
             </div>
           </div>
 
           <div class="flex items-center gap-3 mt-2">
-            <span class="text-xs font-bold text-slate-600">選択中のプレビュー:</span>
-            <div id="edit-image-preview" class="w-20 h-20 border-2 border-sky-300 rounded-xl flex items-center justify-center bg-slate-50 text-4xl overflow-hidden shadow-inner">
+            <span class="text-xs font-bold text-slate-600">プレビュー:</span>
+            <div id="edit-image-preview" class="w-16 h-16 border-2 border-sky-300 rounded-xl flex items-center justify-center bg-white text-3xl overflow-hidden shadow-inner">
               🌟
             </div>
           </div>
         </div>
 
-        <div id="edit-choices-section" class="flex flex-col gap-3 p-3 bg-red-50 rounded-xl border border-red-200" style="display: none;">
-          <p class="font-bold text-red-700 text-sm">❌ 悪い行動のときの正しい選択肢</p>
-          <div class="form-group">
-            <label class="form-label text-green-700">正しい行動（正解）</label>
-            <input type="text" id="edit-correct-choice" class="form-input" placeholder="例: 「じゅんばんこ」で かす">
+        <!-- ❌ 悪い行動のときの選択肢（イラスト＋テキスト）設定エリア -->
+        <div id="edit-choices-section" class="flex flex-col gap-4 p-3 bg-red-50 rounded-2xl border border-red-200" style="display: none;">
+          <p class="font-bold text-red-700 text-sm border-b border-red-200 pb-1">
+            ❌ 悪い行動のときの「選択肢（イラスト＋文章）」の設定
+          </p>
+
+          <!-- 正しい行動（正解カード） -->
+          <div class="bg-emerald-50 border-2 border-emerald-300 p-3 rounded-xl flex flex-col gap-2">
+            <span class="font-extrabold text-emerald-800 text-sm">⭕ 正しい行動（正解の選択肢）</span>
+            <input type="text" id="edit-correct-choice" class="form-input text-sm" placeholder="例: 「じゅんばんこ」で かす">
+            
+            <div class="flex items-center gap-2 flex-wrap">
+              <select id="edit-correct-img-preset" class="form-select text-xs p-1" onchange="updateChoiceImgFromPreset('correct')">
+                <option value="🤝">🤝 なかよし</option>
+                <option value="🙋">🙋 「かして」</option>
+                <option value="🪑">🪑 しずかにすわる</option>
+                <option value="🚶">🚶 しずかにあるく</option>
+                <option value="🗑️">🗑️ ごみすて</option>
+                <option value="💮">💮 はなまる</option>
+              </select>
+
+              <label class="btn-sub text-xs py-1 px-2 cursor-pointer">
+                📁 画像
+                <input type="file" accept="image/*" class="hidden" onchange="handleChoiceFileUpload(event, 'correct')">
+              </label>
+
+              <button type="button" class="btn-sub btn-accent text-xs py-1 px-2" onclick="searchIrasutoyaForInput('edit-correct-choice')">
+                🔍 いらすとや
+              </button>
+
+              <div id="edit-correct-img-prev" class="w-10 h-10 border border-emerald-400 rounded-lg bg-white flex items-center justify-center text-xl overflow-hidden shadow-sm">
+                🤝
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label text-red-600">間違いの選択肢 1</label>
-            <input type="text" id="edit-wrong-choice-1" class="form-input" placeholder="例: ひとりじめしつづける">
+
+          <!-- 間違い選択肢 1 -->
+          <div class="bg-rose-50 border-2 border-rose-200 p-3 rounded-xl flex flex-col gap-2">
+            <span class="font-extrabold text-rose-800 text-sm">❌ 間違いの選択肢 1</span>
+            <input type="text" id="edit-wrong-choice-1" class="form-input text-sm" placeholder="例: ひとりじめしつづける">
+            
+            <div class="flex items-center gap-2 flex-wrap">
+              <select id="edit-wrong-1-img-preset" class="form-select text-xs p-1" onchange="updateChoiceImgFromPreset('wrong1')">
+                <option value="💥">💥 けんか</option>
+                <option value="📢">📢 さわぐ</option>
+                <option value="🗣️">🗣️ おおごえ</option>
+                <option value="🏃">🏃 はしる</option>
+                <option value="🤫">🤫 だまって持っていく</option>
+                <option value="❌">❌ ばつ</option>
+              </select>
+
+              <label class="btn-sub text-xs py-1 px-2 cursor-pointer">
+                📁 画像
+                <input type="file" accept="image/*" class="hidden" onchange="handleChoiceFileUpload(event, 'wrong1')">
+              </label>
+
+              <button type="button" class="btn-sub btn-accent text-xs py-1 px-2" onclick="searchIrasutoyaForInput('edit-wrong-choice-1')">
+                🔍 いらすとや
+              </button>
+
+              <div id="edit-wrong-1-img-prev" class="w-10 h-10 border border-rose-300 rounded-lg bg-white flex items-center justify-center text-xl overflow-hidden shadow-sm">
+                💥
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label class="form-label text-red-600">間違いの選択肢 2</label>
-            <input type="text" id="edit-wrong-choice-2" class="form-input" placeholder="例: おもちゃを なげる">
+
+          <!-- 間違い選択肢 2 -->
+          <div class="bg-rose-50 border-2 border-rose-200 p-3 rounded-xl flex flex-col gap-2">
+            <span class="font-extrabold text-rose-800 text-sm">❌ 間違いの選択肢 2</span>
+            <input type="text" id="edit-wrong-choice-2" class="form-input text-sm" placeholder="例: おもちゃを なげる">
+            
+            <div class="flex items-center gap-2 flex-wrap">
+              <select id="edit-wrong-2-img-preset" class="form-select text-xs p-1" onchange="updateChoiceImgFromPreset('wrong2')">
+                <option value="📢">📢 さわぐ</option>
+                <option value="💥">💥 けんか</option>
+                <option value="⚡">⚡ はしる・あばれる</option>
+                <option value="📦">📦 なげる</option>
+                <option value="❓">❓ はてな</option>
+              </select>
+
+              <label class="btn-sub text-xs py-1 px-2 cursor-pointer">
+                📁 画像
+                <input type="file" accept="image/*" class="hidden" onchange="handleChoiceFileUpload(event, 'wrong2')">
+              </label>
+
+              <button type="button" class="btn-sub btn-accent text-xs py-1 px-2" onclick="searchIrasutoyaForInput('edit-wrong-choice-2')">
+                🔍 いらすとや
+              </button>
+
+              <div id="edit-wrong-2-img-prev" class="w-10 h-10 border border-rose-300 rounded-lg bg-white flex items-center justify-center text-xl overflow-hidden shadow-sm">
+                📢
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
 
@@ -696,7 +804,7 @@
   </div>
 
   <script>
-    // デフォルト問題データ定義
+    // デフォルト問題データ定義（選択肢画像付き）
     const DEFAULT_QUESTIONS = [
       {
         id: 'def_1',
@@ -719,7 +827,9 @@
           </svg>`,
         isGood: false,
         correctChoice: 'ともだちと なかよくする',
-        wrongChoices: ['ともだちと けんかする', 'ともだちと さわぐ']
+        correctChoiceImage: '🤝',
+        wrongChoices: ['ともだちと けんかする', 'ともだちと さわぐ'],
+        wrongChoiceImages: ['💥', '📢']
       },
       {
         id: 'def_2',
@@ -739,7 +849,9 @@
           </svg>`,
         isGood: true,
         correctChoice: 'ごみを ごみばこに すてる',
-        wrongChoices: []
+        correctChoiceImage: '🗑️',
+        wrongChoices: [],
+        wrongChoiceImages: []
       },
       {
         id: 'def_3',
@@ -763,7 +875,9 @@
           </svg>`,
         isGood: false,
         correctChoice: 'しずかに すわって きく',
-        wrongChoices: ['おおごえを だす', 'きょうしつを でていく']
+        correctChoiceImage: '🪑',
+        wrongChoices: ['おおごえを だす', 'きょうしつを でていく'],
+        wrongChoiceImages: ['🗣️', '🏃']
       },
       {
         id: 'def_4',
@@ -784,7 +898,9 @@
           </svg>`,
         isGood: true,
         correctChoice: 'げんきに あいさつを する',
-        wrongChoices: []
+        correctChoiceImage: '🙋',
+        wrongChoices: [],
+        wrongChoiceImages: []
       },
       {
         id: 'def_5',
@@ -804,7 +920,9 @@
           </svg>`,
         isGood: false,
         correctChoice: 'しずかに あるく',
-        wrongChoices: ['もっと はやく はしる', 'おどりばで あそぶ']
+        correctChoiceImage: '🚶',
+        wrongChoices: ['もっと はやく はしる', 'おどりばで あそぶ'],
+        wrongChoiceImages: ['⚡', '🛝']
       },
       {
         id: 'def_6',
@@ -829,7 +947,9 @@
           </svg>`,
         isGood: true,
         correctChoice: 'じゅんばんを まもる',
-        wrongChoices: []
+        correctChoiceImage: '🤝',
+        wrongChoices: [],
+        wrongChoiceImages: []
       },
       {
         id: 'def_7',
@@ -846,7 +966,9 @@
           </svg>`,
         isGood: false,
         correctChoice: '「かして」と きく',
-        wrongChoices: ['こっそり もっていく', 'なげつける']
+        correctChoiceImage: '🙋',
+        wrongChoices: ['こっそり もっていく', 'なげつける'],
+        wrongChoiceImages: ['🤫', '📦']
       }
     ];
 
@@ -860,6 +982,14 @@
     let quizHistory = [];
     let currentEditingId = null;
     let editingImageData = '🌟';
+
+    // 編集中の選択肢画像一時データ
+    let choiceImagesData = {
+      correct: '🤝',
+      wrong1: '💥',
+      wrong2: '📢'
+    };
+
     let pendingConfirmAction = null;
 
     // 誤操作防止トリプルタップ用
@@ -871,7 +1001,7 @@
       updateChoiceCountUI();
     };
 
-    // カスタムダイアログ機能（alert / confirm の代替）
+    // カスタムダイアログ機能
     function showConfirmDialog(message, onConfirm, icon = '⚠️') {
       document.getElementById('custom-confirm-message').innerText = message;
       document.getElementById('custom-confirm-icon').innerText = icon;
@@ -895,7 +1025,7 @@
 
     function loadAllQuestionsFromStorage() {
       try {
-        const saved = localStorage.getItem('manner_quiz_all_questions_v2');
+        const saved = localStorage.getItem('manner_quiz_all_questions_v3');
         if (saved) {
           allQuestions = JSON.parse(saved);
         } else {
@@ -910,14 +1040,13 @@
 
     function saveAllQuestionsToStorage() {
       try {
-        localStorage.setItem('manner_quiz_all_questions_v2', JSON.stringify(allQuestions));
+        localStorage.setItem('manner_quiz_all_questions_v3', JSON.stringify(allQuestions));
       } catch (e) {
         console.error('Failed to save questions', e);
         showAlertDialog('保存に失敗しました。画像サイズが大きすぎる可能性があります。', '⚠️');
       }
     }
 
-    // 問題データの初期化・全削除機能
     function resetQuestionsToDefault() {
       showConfirmDialog(
         'すべての問題を初期状態（デフォルト7問）に戻しますか？',
@@ -1206,31 +1335,61 @@
       document.getElementById('step-badge').innerText = '✨ 正しい行動を選ぼう！';
       document.getElementById('marubatsu-area').style.display = 'none';
 
-      const wrongShuffled = [...(q.wrongChoices || [])].sort(() => Math.random() - 0.5);
-      const activeWrongChoices = wrongShuffled.slice(0, Math.max(0, choiceCount - 1));
-      
-      const activeChoices = [q.correctChoice || q.title, ...activeWrongChoices];
+      // 正解＆不正解の選択肢オブジェクトの配列を作成（イラスト付き）
+      const correctChoiceObj = {
+        text: q.correctChoice || q.title,
+        img: q.correctChoiceImage || '🤝',
+        isCorrect: true
+      };
+
+      const wrongChoicesArr = (q.wrongChoices || []).map((text, idx) => ({
+        text: text,
+        img: (q.wrongChoiceImages && q.wrongChoiceImages[idx]) ? q.wrongChoiceImages[idx] : '💥',
+        isCorrect: false
+      }));
+
+      const wrongShuffled = [...wrongChoicesArr].sort(() => Math.random() - 0.5);
+      const activeWrong = wrongShuffled.slice(0, Math.max(0, choiceCount - 1));
+
+      const activeChoices = [correctChoiceObj, ...activeWrong];
       activeChoices.sort(() => Math.random() - 0.5);
 
       const choicesArea = document.getElementById('choices-area');
-      choicesArea.style.display = 'flex';
-      choicesArea.innerHTML = activeChoices.map(choice => `
-        <button class="btn-choice" onclick="checkStep2('${choice.replace(/'/g, "\\'")}')">${choice}</button>
-      `).join('');
+      choicesArea.style.display = 'grid';
+      choicesArea.innerHTML = activeChoices.map(item => {
+        let imgHtml = '🌟';
+        if (item.img.startsWith('data:image')) {
+          imgHtml = `<img src="${item.img}" class="w-full h-full object-contain">`;
+        } else if (item.img.startsWith('<svg')) {
+          imgHtml = item.img;
+        } else {
+          imgHtml = `<span class="text-5xl">${item.img}</span>`;
+        }
+
+        const safeText = item.text.replace(/'/g, "\\'");
+        return `
+          <button class="choice-card-button" onclick="checkStep2('${safeText}', ${item.isCorrect})">
+            <div class="choice-card-img-box">
+              ${imgHtml}
+            </div>
+            <div class="choice-card-text">
+              ${item.text}
+            </div>
+          </button>
+        `;
+      }).join('');
 
       speakText('ただしい こうどうを えらぼう！');
     }
 
-    function checkStep2(selectedChoice) {
-      const q = currentQueue[currentIndex];
+    function checkStep2(selectedChoice, isCorrect) {
       speakText(selectedChoice);
-
-      const isCorrect = (selectedChoice === (q.correctChoice || q.title));
 
       if (isCorrect) {
         playSound('ok');
         showFeedback('feedback-ok');
 
+        const q = currentQueue[currentIndex];
         quizHistory.unshift({
           title: q.title,
           isGood: q.isGood,
@@ -1369,10 +1528,11 @@
       }).join('');
     }
 
-    function searchIrasutoya() {
-      const text = document.getElementById('edit-text').value.trim();
+    function searchIrasutoyaForInput(inputId) {
+      const input = document.getElementById(inputId);
+      const text = input ? input.value.trim() : '';
       if (!text) {
-        showAlertDialog('問題の文章を入力してください！', '💡');
+        showAlertDialog('文章を入力してください！', '💡');
         return;
       }
       const query = encodeURIComponent('いらすとや ' + text);
@@ -1399,6 +1559,10 @@
           document.getElementById('edit-wrong-choice-2').value = (q.wrongChoices && q.wrongChoices[1]) || '';
 
           editingImageData = q.imageData || q.svgContent || '🌟';
+
+          choiceImagesData.correct = q.correctChoiceImage || '🤝';
+          choiceImagesData.wrong1 = (q.wrongChoiceImages && q.wrongChoiceImages[0]) || '💥';
+          choiceImagesData.wrong2 = (q.wrongChoiceImages && q.wrongChoiceImages[1]) || '📢';
         }
       } else {
         modalTitle.innerText = '新しい問題を作成';
@@ -1410,12 +1574,17 @@
         document.getElementById('edit-correct-choice').value = '';
         document.getElementById('edit-wrong-choice-1').value = '';
         document.getElementById('edit-wrong-choice-2').value = '';
+        
         editingImageData = '🌟';
+        choiceImagesData.correct = '🤝';
+        choiceImagesData.wrong1 = '💥';
+        choiceImagesData.wrong2 = '📢';
       }
 
       switchImageSourceTab('preset');
       toggleEditChoicesArea();
       updateImagePreview();
+      updateChoicePreviews();
       openModal('modal-edit-problem');
     }
 
@@ -1454,6 +1623,50 @@
         };
         reader.readAsDataURL(file);
       }
+    }
+
+    function updateChoiceImgFromPreset(targetKey) {
+      let selectId = '';
+      if (targetKey === 'correct') selectId = 'edit-correct-img-preset';
+      if (targetKey === 'wrong1') selectId = 'edit-wrong-1-img-preset';
+      if (targetKey === 'wrong2') selectId = 'edit-wrong-2-img-preset';
+
+      const sel = document.getElementById(selectId);
+      if (sel) {
+        choiceImagesData[targetKey] = sel.value;
+        updateChoicePreviews();
+      }
+    }
+
+    function handleChoiceFileUpload(e, targetKey) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          choiceImagesData[targetKey] = evt.target.result;
+          updateChoicePreviews();
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function updateChoicePreviews() {
+      ['correct', 'wrong1', 'wrong2'].forEach(key => {
+        let prevId = `edit-${key === 'correct' ? 'correct' : (key === 'wrong1' ? 'wrong-1' : 'wrong-2')}-img-prev`;
+        const container = document.getElementById(prevId);
+        if (!container) return;
+
+        const imgVal = choiceImagesData[key];
+        if (!imgVal) {
+          container.innerHTML = '🌟';
+        } else if (imgVal.startsWith('data:image')) {
+          container.innerHTML = `<img src="${imgVal}" class="w-full h-full object-contain">`;
+        } else if (imgVal.startsWith('<svg')) {
+          container.innerHTML = imgVal;
+        } else {
+          container.innerHTML = `<span class="text-2xl">${imgVal}</span>`;
+        }
+      });
     }
 
     function updateImagePreview() {
@@ -1567,10 +1780,14 @@
       }
 
       let correctChoice = '';
+      let correctChoiceImage = '🤝';
       let wrongChoices = [];
+      let wrongChoiceImages = [];
 
       if (!isGood) {
         correctChoice = document.getElementById('edit-correct-choice').value.trim();
+        correctChoiceImage = choiceImagesData.correct || '🤝';
+
         const w1 = document.getElementById('edit-wrong-choice-1').value.trim();
         const w2 = document.getElementById('edit-wrong-choice-2').value.trim();
 
@@ -1579,10 +1796,17 @@
           return;
         }
 
-        if (w1) wrongChoices.push(w1);
-        if (w2) wrongChoices.push(w2);
+        if (w1) {
+          wrongChoices.push(w1);
+          wrongChoiceImages.push(choiceImagesData.wrong1 || '💥');
+        }
+        if (w2) {
+          wrongChoices.push(w2);
+          wrongChoiceImages.push(choiceImagesData.wrong2 || '📢');
+        }
       } else {
         correctChoice = title;
+        correctChoiceImage = '🤝';
       }
 
       if (currentEditingId) {
@@ -1594,7 +1818,9 @@
             title,
             isGood,
             correctChoice,
+            correctChoiceImage,
             wrongChoices,
+            wrongChoiceImages,
             imageData: editingImageData,
             svgContent: (typeof editingImageData === 'string' && editingImageData.startsWith('<svg')) ? editingImageData : null
           };
@@ -1607,7 +1833,9 @@
           title,
           isGood,
           correctChoice,
+          correctChoiceImage,
           wrongChoices,
+          wrongChoiceImages,
           imageData: editingImageData,
           svgContent: (typeof editingImageData === 'string' && editingImageData.startsWith('<svg')) ? editingImageData : null
         };
